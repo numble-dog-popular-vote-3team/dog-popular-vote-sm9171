@@ -19,4 +19,14 @@ public class DogAcceptanceTest extends AcceptanceTest{
 
         assertThat(response.jsonPath().getList("content").size()).isEqualTo(5);
     }
+
+    @DisplayName("강아지 상세 조회")
+    @Test
+    void findDog() {
+        String dogId = "1";
+        ExtractableResponse<Response> response = DogSteps.강아지_상세_조회_요청(dogId);
+
+        assertThat(response.jsonPath().getString("dogId")).isEqualTo("1");
+        assertThat(response.jsonPath().getString("name")).isEqualTo("후추");
+    }
 }

@@ -13,4 +13,11 @@ public class DogSteps {
                 .when().get("/dog")
                 .then().log().all().extract();
     }
+
+    public static ExtractableResponse<Response> 강아지_상세_조회_요청(String dogId) {
+        return RestAssured
+                .given()
+                .when().get("/dog/{dogId}", dogId)
+                .then().log().all().extract();
+    }
 }
