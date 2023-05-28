@@ -5,9 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.domain.Page;
 
+import java.io.Serializable;
+
 @Data
 @Builder
-public class DogsResponse {
+public class DogsResponse implements Serializable {
     private Long dogId;
     private String name;
     private String pictureUrl;

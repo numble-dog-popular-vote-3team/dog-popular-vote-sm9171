@@ -4,9 +4,11 @@ import com.numble.dogpopularvote.dog.domain.entity.Dog;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @Builder
-public class DogResponse {
+public class DogResponse implements Serializable {
     private Long dogId;
     private String name;
     private String pictureUrl;

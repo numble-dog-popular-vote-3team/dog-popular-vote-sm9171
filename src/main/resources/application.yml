@@ -9,3 +9,7 @@ spring:
     hibernate:
       ddl-auto: create
     database-platform: org.hibernate.dialect.H2Dialect
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379

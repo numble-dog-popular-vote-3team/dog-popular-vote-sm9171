@@ -1,6 +1,24 @@
 spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mysql?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/numble?serverTimezone=Asia/Seoul
     username: root
-    password: 1234
+    password:
+  flyway:
+    enabled: true # flyway 사용여부
+    baseline-on-migrate: true # baseline 설정
+    baseline-version: 1 # baseline-version을 몇부터 실행할지 설정
+    url: jdbc:mysql://localhost:3306/numble?serverTimezone=Asia/Seoul
+    user: root
+    password:
