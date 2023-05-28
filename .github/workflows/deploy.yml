@@ -3,7 +3,7 @@ name: deploy
 on:
   push:
     branches:
-      - develop
+      - master
 
 jobs:
   push_to_registry:
@@ -24,12 +24,6 @@ jobs:
           touch ./application-prod.yml
           echo "${{ secrets.APPLICATION_PROD_YML }}" >> ./application-prod.yml
         shell: bash
-      - name: make firebase-adminsdk.json
-        run: |
-          cd ./src/main/resources
-          touch ./moneysaving-server-firebase-adminsdk.json
-          echo "${{ secrets.FIREBASE_ADMINSDK_JSON }}" >> ./moneysaving-server-firebase-adminsdk.json
-        shell: bash
       - name: Build with Gradle
         run: ./gradlew bootJar
       - name: Login to NCP Container Registry
@@ -44,8 +38,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/money-saving:latest
-          cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/money-saving:latest
+          tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/numble:latest
+          cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/numble:latest
           cache-to: type=inline
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.GIT_TOKEN }}
@@ -63,8 +57,8 @@ jobs:
           password: ${{ secrets.DEV_PASSWORD }}
           port: ${{ secrets.DEV_PORT }}
           script: |
-            docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/money-saving
+            docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/numble
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
-            docker run -d -p 80:8080 -e TZ=Asia/Seoul ${{ secrets.NCP_CONTAINER_REGISTRY }}/money-saving
+            docker run -d -p 80:8080 -e TZ=Asia/Seoul ${{ secrets.NCP_CONTAINER_REGISTRY }}/numble
             docker image prune -f
